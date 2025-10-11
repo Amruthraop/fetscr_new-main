@@ -1,0 +1,120 @@
+.docs-container {
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 30px 16px 50px 16px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  margin-top: 70px;
+}
+
+.docs-title {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 14px;
+  letter-spacing: 0.4px;
+  background: linear-gradient(45deg, #6a11cb, #2575fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.docs-intro {
+  text-align: center;
+  margin-bottom: 38px;
+  color: #555;
+  font-size: 1.08rem;
+  line-height: 1.7;
+}
+
+.docs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 22px;
+  margin-bottom: 34px;
+}
+
+.docs-card {
+  background: #fff;
+  border-radius: 13px;
+  box-shadow: 0 2.5px 9px rgba(34,37,49,0.07);
+  padding: 26px 22px 21px 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: box-shadow 0.22s, transform 0.2s;
+  text-align: left;
+  border-left: 5px solid #2575fc;
+  min-height: 220px;
+  width: 220px;
+}
+
+.docs-card h2 {
+  margin-top: 0;
+  margin-bottom: 13px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #24334b;
+}
+.docs-card ul, .docs-card ol {
+  margin: 0 0 0 22px;
+  padding: 0;
+}
+.docs-card li {
+  font-size: 1.01rem;
+  margin-bottom: 7px;
+}
+.docs-card code, .docs-code {
+  background: #f4f5fa;
+  color: #20386d;
+  font-family: "Consolas", "Menlo", monospace;
+  padding: 2px 9px;
+  border-radius: 6px;
+  margin-top: 7px;
+  display: inline-block;
+  font-size: 1rem;
+}
+.warning-box {
+  border-left: 5px solid #e63946;
+  background: #fff5f5;
+}
+.warning-box h2 {
+  color: #c92a2a;
+}
+/* Footer */
+.docs-footer {
+  text-align: center;
+  margin-top: 44px;
+  font-size: 1.03rem;
+  color: #555;
+}
+.docs-footer a {
+  color: #2575fc;
+  font-weight: 600;
+  text-decoration: underline;
+}
+.docs-footer a:hover {
+  text-decoration: underline;
+}
+/* Responsive for cards/grid */
+@media (max-width: 992px) {
+  .docs-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+  }
+  .docs-card {
+    padding: 18px 10px;
+    font-size: 1rem;
+  }
+}
+@media (max-width: 660px) {
+  .docs-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .docs-card {
+    padding: 15px 6px;
+  }
+  .docs-title {
+    font-size: 1.42rem;
+  }
+}

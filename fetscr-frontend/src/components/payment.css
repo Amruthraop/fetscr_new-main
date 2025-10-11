@@ -1,0 +1,167 @@
+/* Fade-in animation for container */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.payment-container {
+  max-width: 420px;
+  margin: 40px auto;
+  padding: 32px 26px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  animation: fadeInUp 0.5s ease-out forwards;
+  margin-top: 100px;
+}
+
+.payment-container h2 {
+  color: #1a3e72;
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.payment-container p {
+  color: #344563;
+  font-size: 1rem;
+  margin: 10px 0;
+  line-height: 1.4;
+}
+
+.payment-container h3 {
+  margin: 18px 0 12px 0;
+  color: #274e86;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* Input field styling */
+.upi-section input {
+  width: 90%;
+  padding: 10px;
+  margin: 12px 0;
+  border: 1px solid #cfd4e0;
+  border-radius: 6px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.upi-section input:focus {
+  border: 1px solid #2575fc;
+  box-shadow: 0 0 6px rgba(37, 117, 252, 0.2);
+}
+
+/* Buttons */
+button {
+  display: inline-block;
+  width: 100%;
+  padding: 10px 0;
+  margin-top: 8px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 117, 252, 0.2);
+}
+
+/* Primary buttons */
+.payment-options button,
+.upi-section button:first-of-type,
+.credit-card-section button:first-of-type {
+  background: linear-gradient(45deg, #2575fc, #6a11cb);
+  color: #fff;
+}
+
+.payment-options button:hover,
+.upi-section button:first-of-type:hover,
+.credit-card-section button:first-of-type:hover {
+  background: linear-gradient(45deg, #1f5ed0, #580ca8);
+}
+
+/* Secondary back buttons */
+.back-btn,
+.upi-section button:last-of-type,
+.credit-card-section button:last-of-type {
+  background: #ffffff;
+  color: #2f3c58;
+  display: block;
+  margin: 40px auto 0 auto;
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease, box-shadow 0.2s ease;
+  width: fit-content;
+}
+
+.back-btn:hover,
+.upi-section button:last-of-type:hover,
+.credit-card-section button:last-of-type:hover {
+  background: #dbe2f0;
+  box-shadow: 0 4px 12px rgba(37, 117, 252, 0.2);
+}
+
+/* All buttons in upi-section have primary style except 'Back' */
+.upi-section button {
+  background: linear-gradient(45deg, #2575fc, #6a11cb);
+  color: #fff;
+}
+
+.upi-section button:hover:not(:disabled) {
+  background: linear-gradient(45deg, #1f5ed0, #580ca8);
+  color: #fff;
+}
+
+/* Restore white background for only the last button ("Back") in upi-section */
+.upi-section button:last-of-type {
+  background: #ffffff;
+  color: #2f3c58;
+}
+
+.upi-section button:last-of-type:hover {
+  background: #dbe2f0;
+}
+
+/* Updated back-btn for white bg and black text */
+.back-btn {
+  background: #fff !important;
+  color: #111 !important;
+  border: none;
+  display: block;
+  margin: 40px auto 0 auto;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  width: fit-content;
+  transition: background 0.3s, color 0.3s, box-shadow 0.2s;
+}
+
+.back-btn:hover {
+  background: #eee !important;
+  color: #111 !important;
+  box-shadow: 0 4px 12px rgba(37, 117, 252, 0.1);
+}

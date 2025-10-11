@@ -1,0 +1,243 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 24px;
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid #eee;
+  font-family: "Segoe UI", Arial, sans-serif;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin: 0;
+  box-sizing: border-box;
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  margin-top: auto;
+  margin-left: 20px;
+  cursor: pointer;
+  /* Always keep items in a row */
+  flex-direction: row;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  /* Always keep items in a row */
+  flex-direction: row;
+}
+
+.logo-image {
+  height: 40px;
+  width: auto;
+  margin-right: 12px;
+}
+
+.logo-text {
+  font-size: 30px;
+  font-weight: 700;
+  color: #0a1f44;
+  letter-spacing: 1px;
+}
+
+/* If .logo class still used somewhere else */
+.logo {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0a1f44;
+  letter-spacing: 1px;
+  cursor: pointer;
+  margin-left: 0;
+}
+
+.header-center {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex: 1;
+  margin-left: -80px;
+}
+
+.header-center a,
+.sidebar-nav a {
+  text-decoration: none;
+  color: #444;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 4px 8px;
+  white-space: nowrap;
+}
+
+.header-right {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.btn-primary,
+.btn-login {
+  padding: 8px 18px;
+  border: none;
+  background: #3b82f6;
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-primary:hover,
+.btn-login:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.profile-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #3b82f6;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.profile-avatar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+/* Sidebar for pricing page (desktop only) */
+.sidebar-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 220px;
+  min-height: 100vh;
+  border-right: 1px solid #eee;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #fff;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Ensure sidebar nav links get same padding */
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 0;
+  align-items: flex-start;
+}
+
+.btn-login {
+  height: 46px;
+}
+
+/* Hamburger initially hidden */
+.hamburger {
+  display: none;
+  padding-left: 8px;
+}
+
+/* =======================
+   Responsive Styles
+========================== */
+@media (max-width: 768px) {
+  /* Hide desktop nav and sidebar on mobile */
+  .header-center,
+  .sidebar-header,
+  .sidebar-nav,
+  .header-right {
+    display: none !important;
+  }
+
+  /* Keep logo and brand name in a row on mobile */
+  .header-left,
+  .logo-container {
+    flex-direction: row !important;
+    align-items: center !important;
+  }
+
+  .logo-image {
+    height: 32px;
+  }
+
+  /* Optional: Adjust logo text size on mobile */
+  .logo-text {
+    font-size: 24px;
+  }
+
+  /* Show hamburger menu button */
+  .hamburger {
+    display: block !important;
+    background: none;
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+    color: #0a1f44;
+    margin-left: 256px; /* More natural on mobile */
+  }
+
+  .header {
+    justify-content: flex-start;
+  }
+
+  /* Mobile slide-down menu styles */
+  .mobile-menu {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 100vw;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+    z-index: 2000;
+    padding: 16px 0 10px 0;
+    gap: 18px;
+    animation: fadeInUp 0.2s ease;
+  }
+
+  .mobile-menu a {
+    color: #444;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 8px 24px;
+    font-weight: 600;
+  }
+
+  .mobile-menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 0 24px;
+  }
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(-18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
