@@ -1,11 +1,10 @@
-// backend/database.js
 import { Pool } from "pg";
 import dotenv from "dotenv";
 
 dotenv.config();
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL, // e.g. postgres://user:pass@localhost:5432/mydb
+  connectionString: process.env.DATABASE_URL,
 });
 
 // ✅ Test connection
@@ -31,25 +30,47 @@ export const User = {
     return res.rows[0];
   },
 
-
-  async updateProfile(id, { name, email,number,  password }) {
-  const res = await pool.query(
-    `UPDATE users 
-     SET name=$2, email=$3, number=$4, password=$4 
-     WHERE id=$1 RETURNING *`,
-    [id, name, email, number,  password]
-  );
-  return res.rows[0];
-},
-
-
-  async create({ name, email, password, number,  picture, provider, plan_type, allowed_queries, results_per_query }) {
+  async updateProfile(id, { name, email, number, password }) {
     const res = await pool.query(
-      `INSERT INTO users (name, email, number, password, picture, provider, plan_type, allowed_queries, results_per_query, queries_used) 
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,0) RETURNING *`,
-      [name, email, number, password, picture, provider, plan_type, allowed_queries, results_per_query]
+      `UPDATE users 
+       SET name=$2, email=$3, number=$4, password=$5 
+       WHERE id=$1 RETURNING *`,
+      [id, name, email, number, password]
     );
     return res.rows[0];
+  },
+
+  // --- Create user: allow OTP fields for signup/initiate ---
+  async create({ name, email, password, number, picture, provider, plan_type, allowed_queries, results_per_query, otp, otp_expires, is_verified }) {
+    const res = await pool.query(
+      `INSERT INTO users 
+        (name, email, number, password, picture, provider, plan_type, allowed_queries, results_per_query, queries_used, otp, otp_expires, is_verified) 
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,0,$10,$11,$12)
+       RETURNING *`,
+      [name, email, number, password, picture, provider, plan_type, allowed_queries, results_per_query, otp, otp_expires, is_verified]
+    );
+    return res.rows[0];
+  },
+
+  // --- OTP verification helpers ---
+  async updateOTP(email, otp, otp_expires, password, name, number) {
+    // For unverified user: update OTP, expiry and optionally update password/name/number
+    await pool.query(
+      `UPDATE users 
+        SET otp = $1, otp_expires = $2, password = $3, name = $4, number = $5
+       WHERE email = $6 AND is_verified = FALSE`,
+      [otp, otp_expires, password, name, number, email]
+    );
+  },
+
+  async verifyEmail(email) {
+    // Mark user as verified and clear OTP fields
+    await pool.query(
+      `UPDATE users 
+        SET is_verified = TRUE, otp = NULL, otp_expires = NULL 
+       WHERE email = $1`,
+      [email]
+    );
   },
 
   async updatePlan(id, { plan_type, allowed_queries, results_per_query }) {
@@ -76,15 +97,15 @@ export const User = {
 export const Payment = {
   async create({ user_id, plan, amount, platform, upiId, queries, results_per_query, card_number, cvv }) {
     const res = await pool.query(
-      `INSERT INTO payments (user_id, plan, amount, platform, upiId, queries, results_per_query, card_number, cvv) 
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *`,
+      `INSERT INTO payments 
+      (user_id, plan, amount, platform, upiId, queries, results_per_query, card_number, cvv) 
+      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)
+      RETURNING *`,
       [user_id, plan, amount, platform, upiId, queries, results_per_query, card_number, cvv]
     );
-    return res.rows[0]; // optional: returns inserted row
+    return res.rows[0];
   },
 };
-
-
 
 // ----------------- Credit Card Payments -----------------
 export const CreditCardPayment = {
@@ -99,7 +120,6 @@ export const CreditCardPayment = {
     return result.rows[0];
   },
 };
-
 
 // ----------------- Scraped Queries -----------------
 export const ScrapedQuery = {
