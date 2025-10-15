@@ -1,4 +1,3 @@
-// src/components/PaymentPage.js
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./payment.css";
@@ -9,8 +8,8 @@ const PaymentPage = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
 
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null); // "credit-card" or "upi"
-  const [selectedUpiPlatform, setSelectedUpiPlatform] = useState(null); // "PhonePe" or "Google Pay" or "Paytm" or "Other"
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null);
+  const [selectedUpiPlatform, setSelectedUpiPlatform] = useState(null);
   const [upiId, setUpiId] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -43,7 +42,6 @@ const PaymentPage = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem("fetscr_token");
-      // ✅ Ensure numeric amount only
       const numericAmount = parseFloat(String(amount).replace(/[^0-9.]/g, ""));
 
       const body = {
@@ -59,7 +57,7 @@ const PaymentPage = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          ...(token ? { Authorization: `Bearer ${token} ` } : {}),
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
         body: JSON.stringify(body),
       });
@@ -74,7 +72,8 @@ const PaymentPage = () => {
       }
 
       alert("✅ Payment successful! Plan activated.");
-      navigate("/home");
+      navigate("/home"); // Navigating home to reload and fetch new plan info
+
     } catch (err) {
       console.error("Payment error:", err);
       alert("Failed to record payment: " + (err.message || err));
@@ -82,6 +81,8 @@ const PaymentPage = () => {
       setLoading(false);
     }
   };
+
+  // The rest of your PaymentPage component remains unchanged...
 
   return (
     <div className="payment-container">
@@ -146,9 +147,7 @@ const PaymentPage = () => {
               <p>
                 Amount: <b>₹{amount}</b>
               </p>
-              <label htmlFor="upi-id-input">
-                Enter your UPI ID:
-              </label>
+              <label htmlFor="upi-id-input">Enter your UPI ID:</label>
               <input
                 type="text"
                 id="upi-id-input"

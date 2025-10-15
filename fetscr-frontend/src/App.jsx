@@ -28,8 +28,7 @@ function NotFoundPage() {
   );
 }
 
-
-// Wrapper to hide Header on Welcome/Login/Signup
+// Wrapper to hide Header on Landing/Login/Signup/Reset Password pages
 function Layout({ children }) {
   const location = useLocation();
   const hideHeaderPaths = ["/", "/login", "/signup", "/reset-password"];
@@ -43,27 +42,125 @@ function Layout({ children }) {
   );
 }
 
+// Auth guard for protected routes
+function RequireAuth({ children }) {
+  const token = localStorage.getItem("fetscr_token");
+  if (!token) {
+    // Not logged in, redirect to login page
+    return <Navigate to="/login" replace />;
+  }
+  return children;
+}
+
 function App() {
+  const token = localStorage.getItem("fetscr_token");
+
   return (
     <Router>
       <Layout>
         <Routes>
-          {/* Default route goes to LandingPage */}
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/community" element={<Community />} />
-          <Route path="/docs" element={<Docs />} />
-          <Route path="/results" element={<Results />} />
-          <Route path="/pricing" element={<SubscriptionPlans />} />
-          <Route path="/more-plans" element={<MorePlans />} />
+          {/* Default route: if logged in redirect to /home else show landing */}
+          <Route
+            path="/"
+            element={
+              token ? <Navigate to="/home" replace /> : <LandingPage />
+            }
+          />
+
+          {/* Public routes */}
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/editprofile" element={<EditProfile />} />
-          <Route path="/payment" element={<PaymentPage />} />
-          <Route path="/credit-card-payment" element={<CreditCardPayment />} />
-          <Route path="/upi-payment" element={<UPIPayment />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+
+          {/* Protected routes */}
+          <Route
+            path="/home"
+            element={
+              <RequireAuth>
+                <Home />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/community"
+            element={
+              <RequireAuth>
+                <Community />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/docs"
+            element={
+              <RequireAuth>
+                <Docs />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/results"
+            element={
+              <RequireAuth>
+                <Results />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/pricing"
+            element={
+              <RequireAuth>
+                <SubscriptionPlans />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/more-plans"
+            element={
+              <RequireAuth>
+                <MorePlans />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <RequireAuth>
+                <Profile />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/editprofile"
+            element={
+              <RequireAuth>
+                <EditProfile />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/payment"
+            element={
+              <RequireAuth>
+                <PaymentPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/credit-card-payment"
+            element={
+              <RequireAuth>
+                <CreditCardPayment />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/upi-payment"
+            element={
+              <RequireAuth>
+                <UPIPayment />
+              </RequireAuth>
+            }
+          />
 
           {/* 404 Route */}
           <Route path="/404" element={<NotFoundPage />} />

@@ -19,17 +19,14 @@
 .header-left {
   display: flex;
   align-items: center;
-  margin-top: auto;
-  margin-left: 20px;
   cursor: pointer;
-  /* Always keep items in a row */
   flex-direction: row;
+  margin-left: 20px;
 }
 
 .logo-container {
   display: flex;
   align-items: center;
-  /* Always keep items in a row */
   flex-direction: row;
 }
 
@@ -46,21 +43,11 @@
   letter-spacing: 1px;
 }
 
-/* If .logo class still used somewhere else */
-.logo {
-  font-size: 22px;
-  font-weight: 700;
-  color: #0a1f44;
-  letter-spacing: 1px;
-  cursor: pointer;
-  margin-left: 0;
-}
-
+/* Navigation center */
 .header-center {
   display: flex;
   gap: 24px;
   align-items: center;
-  flex-wrap: wrap;
   justify-content: center;
   flex: 1;
   margin-left: -80px;
@@ -76,6 +63,7 @@
   white-space: nowrap;
 }
 
+/* Right section */
 .header-right {
   display: flex;
   gap: 15px;
@@ -99,6 +87,7 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+/* Avatar */
 .profile-avatar {
   width: 42px;
   height: 42px;
@@ -134,7 +123,6 @@
   box-shadow: 2px 0 6px rgba(0, 0, 0, 0.05);
 }
 
-/* Ensure sidebar nav links get same padding */
 .sidebar-nav {
   display: flex;
   flex-direction: column;
@@ -150,14 +138,19 @@
 /* Hamburger initially hidden */
 .hamburger {
   display: none;
-  padding-left: 8px;
+  padding: 4px 6px;
+  background: none;
+  border: none;
+  font-size: 30px;
+  color: #0a1f44;
+  cursor: pointer;
 }
 
 /* =======================
    Responsive Styles
 ========================== */
-@media (max-width: 768px) {
-  /* Hide desktop nav and sidebar on mobile */
+@media (max-width: 992px) {
+  /* Hide desktop nav and sidebar */
   .header-center,
   .sidebar-header,
   .sidebar-nav,
@@ -165,7 +158,7 @@
     display: none !important;
   }
 
-  /* Keep logo and brand name in a row on mobile */
+  /* Keep logo left aligned */
   .header-left,
   .logo-container {
     flex-direction: row !important;
@@ -176,27 +169,29 @@
     height: 32px;
   }
 
-  /* Optional: Adjust logo text size on mobile */
   .logo-text {
     font-size: 24px;
   }
 
-  /* Show hamburger menu button */
+  /* Show hamburger on right side */
   .hamburger {
     display: block !important;
+    position: absolute;
+    right: 6px;
+    top: 4px;
+    width:25px;
     background: none;
     border: none;
-    font-size: 25px;
+    font-size: 28px;
     cursor: pointer;
     color: #0a1f44;
-    margin-left: 256px; /* More natural on mobile */
   }
 
   .header {
     justify-content: flex-start;
   }
 
-  /* Mobile slide-down menu styles */
+  /* Mobile/tablet slide-down menu */
   .mobile-menu {
     display: flex;
     flex-direction: column;
